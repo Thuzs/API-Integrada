@@ -10,14 +10,16 @@ return dadosUsuarios
 //Função para listar todos os dados que podem ser alterados do profile
 function getListaProfile(numero){
 
-let exibirDados = false
+    let status = false
+    let exibirDados = []
 
     dados.contatos['whats-users'].forEach(function(item){
         if(Number(numero) == Number(item.number)){
-            if(!exibirDados){
-                exibirDados = []
-            }
+            
+            status = true
+
             exibirDados.push({
+            "Nome": item.account,
             "Nickname": item.nickname,
             "Foto": item['profile-image'],
             "Created": item['created-since'],
@@ -26,8 +28,15 @@ let exibirDados = false
             })
         }
     })
-    return exibirDados 
+
+    if(status)
+        return exibirDados
+    else
+        return false
 }
 console.log(getListaProfile(11966578996))
 
+function getListaDadosContato(){
+
+}
 
