@@ -127,8 +127,41 @@ function getListaMensagensExpecifica(numero, nome){
     else
         return status
 }
+
+function getPalavraChave(numero, nome, palavra){
+    
+    let status = false
+    let exibirDados = []
+
+    dados.contatos['whats-users'].forEach(function(item){
+        if(Number(numero) == Number(item.number)){
+
+            item.contacts
+                .filter(contato => nome == contato.name)
+                .forEach(contato => {
+
+                    const mensagensFiltradas = contato.messages.filter(msg =>
+                        msg.content.toLowerCase().includes(palavra.toLowerCase())
+                    )
+
+                    if(mensagensFiltradas.length > 0){
+                        status = true
+                        exibirDados.push({
+                            "Numero": item.number,
+                            "Contato": contato.name,
+                            "Conversa": mensagensFiltradas
+                        })
+                    }
+                })
+        }
+    })
+    if(status)
+        return exibirDados
+    else
+        return status
+}
    
-console.log(getListaMensagensExpecifica(11966578996,"José Maria da Silva"))
+console.log(getPalavraChave(11987876567,"Jane Smith", "hi"))
 
 
 
