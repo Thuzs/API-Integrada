@@ -1,7 +1,7 @@
 const dados = require('./contatos.js')
 
 //Função para exibir todos os usuários dos contatos
-function getListaDadosUsuarios() {
+function getListaDadosUsuarios(){
 
     const dadosUsuarios = dados.contatos['whats-users']
 return dadosUsuarios
@@ -37,28 +37,76 @@ function getListaProfile(numero){
 
 function getListaDadosContato(numero){
     
-    let exibirDados = false
+    let status = false
+    let exibirDados = []
     
     dados.contatos['whats-users'].forEach(function(item){
         if(Number(numero) == Number(item.number)){
 
-            let exibirDados = []
+            status = true
 
             exibirDados.push(item.contacts.map(function(itemContato){
                 
-                    const contatos = {
-                        "Nome": itemContato.name,
-                        "Foto": itemContato.image,
-                        "Descrição": itemContato.description
-                    }
-                    return contatos
+                const contatos = {
+                    'Nome': itemContato.name,
+                    'Foto': itemContato.image,
+                    'Descricao': itemContato.description
+                }
+                return contatos
                     
+            }))
+                
+        }
+            
+    })
+    if(status)
+        return exibirDados
+    else
+        return status
+}
+
+function getListaMensagens(numero){
+
+    let status = false
+    let exibirDados = []
+
+    dados.contatos['whats-users'].forEach(function(item){
+        if(Number(numero) == Number(item.number)){
+
+            status = true
+
+            item.contacts.map(function(itemContato){
+                exibirDados.push(itemContato.messages.map(function(itemConversa){
+
+                    const conversa = {
+                        "Enviado_por": itemConversa.sender,
+                        "Mensagem": itemConversa.content
+
+                    }
+                    console.log(conversa)
+                    return conversa
+
                 }))
                 
-            }
-        })
+            })
+            
+        }
+        
+    })
+    if(status)
         return exibirDados
-    }
-    
+    else
+        return status 
+}
+console.log(getListaMensagens(11966578996))
 
-console.log(getListaDadosContato(11987876567))
+
+
+
+
+    module.exports = {
+        getListaDadosUsuarios,
+        getListaProfile,
+        getListaDadosContato,
+        getListaMensagens,
+    }
