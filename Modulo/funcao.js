@@ -35,6 +35,7 @@ function getListaProfile(numero){
         return false
 }
 
+//Função para listar os dados de todos os contatos de um usuário
 function getListaDadosContato(numero){
     
     let status = false
@@ -65,6 +66,7 @@ function getListaDadosContato(numero){
         return status
 }
 
+//Função para exibir todas as conversas de um usuário
 function getListaMensagens(numero){
 
     let status = false
@@ -100,6 +102,7 @@ function getListaMensagens(numero){
         return status 
 }
 
+//Função para listar uma conversa de um usuário e um contato expecifico
 function getListaMensagensExpecifica(numero, nome){
 
     let status = false
@@ -128,6 +131,7 @@ function getListaMensagensExpecifica(numero, nome){
         return status
 }
 
+//Função para pesquisar a palavra chave em uma conversa de um contato de um usuário
 function getPalavraChave(numero, nome, palavra){
     
     let status = false
@@ -161,17 +165,11 @@ function getPalavraChave(numero, nome, palavra){
         return status
 }
    
-console.log(getPalavraChave(11987876567,"Jane Smith", "hi"))
-
-
-
-
-
-
     module.exports = {
         getListaDadosUsuarios,
         getListaProfile,
         getListaDadosContato,
         getListaMensagens,
         getListaMensagensExpecifica,
+        getPalavraChave
     }
