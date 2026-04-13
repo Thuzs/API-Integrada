@@ -80,9 +80,10 @@ function getListaMensagens(numero){
 
                     const conversa = {
                         "Enviado_por": itemConversa.sender,
-                        "Mensagem": itemConversa.content
-
+                        "Mensagem": itemConversa.content,
+                        "Hora": itemConversa.time
                     }
+
                     console.log(conversa)
                     return conversa
 
@@ -98,7 +99,37 @@ function getListaMensagens(numero){
     else
         return status 
 }
-console.log(getListaMensagens(11966578996))
+
+function getListaMensagensExpecifica(numero, nome){
+
+    let status = false
+    let exibirDados = []
+
+    dados.contatos['whats-users'].forEach(function(item){
+        if(Number(numero) == Number(item.number)){
+
+            status = true
+
+            exibirDados.push(
+                item.contacts
+                    .filter(itemContato => nome == itemContato.name)
+                .map(itemContato => ({
+                    "Numero": item.number,
+                    "Contato": itemContato.name,
+                    "Conversa": itemContato.messages
+                    
+                }))
+            )
+        }
+    })
+    if(status)
+        return exibirDados
+    else
+        return status
+}
+   
+console.log(getListaMensagensExpecifica(11966578996,"José Maria da Silva"))
+
 
 
 
@@ -109,4 +140,5 @@ console.log(getListaMensagens(11966578996))
         getListaProfile,
         getListaDadosContato,
         getListaMensagens,
+        getListaMensagensExpecifica,
     }
